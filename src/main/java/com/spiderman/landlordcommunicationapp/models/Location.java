@@ -1,8 +1,23 @@
 package com.spiderman.landlordcommunicationapp.models;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "locations")
 public class Location {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "locationid")
+    private int id;
+
+    @NotNull
+    @Column(name = "longitude")
     private double longitude;
+
+    @NotNull
+    @Column(name = "latitude")
     private double latitude;
 
     public Location(){}
