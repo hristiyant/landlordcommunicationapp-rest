@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+//@SecondaryTable(name = "ratings")
 public class User {
 
     @Id
@@ -42,13 +43,17 @@ public class User {
 
 
     //todo double check this section
+//    how to/or is it even possible to fill the List<Double> from table rating without creating Rating entity?
+//    @OneToMany
+//    @JoinColumn(name = "userid", table = "ratings")
+//    @Column(table = "ratings", name = "rating")
     @OneToMany
     @JoinColumn(name = "userid")
-    private List<Double> ratings;
+    private List<Rating> ratings;
 
     @OneToMany
     @JoinColumn(name = "userid")
-    private List<Accomodation> accommodations;
+    private List<Accommodation> accommodations;
 
     public int getId() {
         return id;
@@ -106,19 +111,19 @@ public class User {
         this.bankAccount = bankAccount;
     }
 
-    public List<Double> getRatings() {
+    public List<Rating> getRatings() {
         return ratings;
     }
 
-    public void setRatings(List<Double> ratings) {
+    public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
     }
 
-    public List<Accomodation> getAccommodations() {
+    public List<Accommodation> getAccommodations() {
         return accommodations;
     }
 
-    public void setAccommodations(List<Accomodation> accommodations) {
+    public void setAccommodations(List<Accommodation> accommodations) {
         this.accommodations = accommodations;
     }
 }

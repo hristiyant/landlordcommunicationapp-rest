@@ -1,10 +1,8 @@
 package com.spiderman.landlordcommunicationapp;
 
 import com.spiderman.landlordcommunicationapp.models.*;
-import com.spiderman.landlordcommunicationapp.models.messages.ImageMessage;
-import com.spiderman.landlordcommunicationapp.models.messages.TextMessage;
-import com.spiderman.landlordcommunicationapp.models.messages.TransactionMessage;
-import com.spiderman.landlordcommunicationapp.models.messages.base.MessageDetail;
+import com.spiderman.landlordcommunicationapp.models.messages.ImageAddition;
+import com.spiderman.landlordcommunicationapp.models.messages.TransactionAddition;
 import org.hibernate.SessionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,14 +20,13 @@ public class LandlordcommunicationappApplication {
         return new org.hibernate.cfg.Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(User.class)
-                .addAnnotatedClass(Accomodation.class)
+                .addAnnotatedClass(Accommodation.class)
                 .addAnnotatedClass(Transaction.class)
                 .addAnnotatedClass(Location.class)
                 .addAnnotatedClass(BankAccount.class)
-                .addAnnotatedClass(ImageMessage.class)
-                .addAnnotatedClass(TextMessage.class)
-                .addAnnotatedClass(TransactionMessage.class)
-                .addAnnotatedClass(MessageDetail.class)
+                .addAnnotatedClass(ImageAddition.class)
+                .addAnnotatedClass(TransactionAddition.class)
+                .addAnnotatedClass(Rating.class)
                 .buildSessionFactory();
     }
 }

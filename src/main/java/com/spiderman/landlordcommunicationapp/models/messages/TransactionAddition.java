@@ -1,15 +1,14 @@
 package com.spiderman.landlordcommunicationapp.models.messages;
 
 import com.spiderman.landlordcommunicationapp.models.Transaction;
-import com.spiderman.landlordcommunicationapp.models.messages.base.MessageDetail;
-import com.spiderman.landlordcommunicationapp.models.messages.base.Messageable;
+import com.spiderman.landlordcommunicationapp.models.messages.base.Addable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "transactionmessages")
-public class TransactionMessage implements Messageable {
+public class TransactionAddition implements Addable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +20,9 @@ public class TransactionMessage implements Messageable {
     @JoinColumn(name = "transactionid")
     private Transaction transaction;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "messagedetailid")
-    private MessageDetail messageDetail;
-
     @Override
-    public MessageDetail returnMessageDetail() {
-        return this.getMessageDetail();
+    public TypeOfAddition returnTypeOfTheAddition() {
+        return TypeOfAddition.TRANSACTION;
     }
 
     public int getId() {
@@ -47,11 +41,4 @@ public class TransactionMessage implements Messageable {
         this.transaction = transaction;
     }
 
-    public MessageDetail getMessageDetail() {
-        return messageDetail;
-    }
-
-    public void setMessageDetail(MessageDetail messageDetail) {
-        this.messageDetail = messageDetail;
-    }
 }

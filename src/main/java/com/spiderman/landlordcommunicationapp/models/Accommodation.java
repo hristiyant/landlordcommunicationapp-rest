@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "accommodations")
-public class Accomodation {
+public class Accommodation {
 
 
     @Id
@@ -20,8 +20,9 @@ public class Accomodation {
     private Location location;
 
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "addressid")
+//    @OneToOne
+//    @JoinColumn(name = "addressid")
+    @Column(name = "address")
     private String address;
 
     //todo careful about cycle!
