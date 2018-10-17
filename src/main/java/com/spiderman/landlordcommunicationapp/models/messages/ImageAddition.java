@@ -1,17 +1,15 @@
 package com.spiderman.landlordcommunicationapp.models.messages;
 
-import com.spiderman.landlordcommunicationapp.models.messages.base.Addable;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "imagemessages")
-public class ImageAddition implements Addable {
+@Table(name = "images")
+public class ImageAddition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "imagemessageid")
+    @Column(name = "imageid")
     private int id;
 
     @NotNull
@@ -19,11 +17,6 @@ public class ImageAddition implements Addable {
     private byte[] imageContent;
 
     public ImageAddition() {
-    }
-
-    @Override
-    public TypeOfAddition returnTypeOfTheAddition() {
-        return TypeOfAddition.IMAGE;
     }
 
     public int getId() {

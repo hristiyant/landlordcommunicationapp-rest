@@ -2,7 +2,6 @@ package com.spiderman.landlordcommunicationapp.models.messages;
 
 import com.spiderman.landlordcommunicationapp.models.Accommodation;
 import com.spiderman.landlordcommunicationapp.models.User;
-import com.spiderman.landlordcommunicationapp.models.messages.base.Addable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,26 +21,24 @@ public class Message {
     private Timestamp timeSent;
 
     @ManyToOne
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "tenant")
     private User tenant;
 
     @ManyToOne
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "landlord")
     private User landlord;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "accommodationid")
+    @JoinColumn(name = "accommodation")
     private Accommodation contextAccommodation;
 
     @Column(name = "text")
     private String textOfTheMessage;
 
     @ManyToOne
-    @JoinColumn(name = "messageid")
-    private Addable addable; //todo how can we use interface here ?
-    //https://stackoverflow.com/questions/2912988/persist-collection-of-interface-using-hibernate/2918468#2918468
-    //other options?
+    @JoinColumn(name = "image")
+    private ImageAddition image;
 
     public Message() {
     }
@@ -60,14 +57,6 @@ public class Message {
 
     public void setTextOfTheMessage(String textOfTheMessage) {
         this.textOfTheMessage = textOfTheMessage;
-    }
-
-    public Addable getAddable() {
-        return addable;
-    }
-
-    public void setAddable(Addable addable) {
-        this.addable = addable;
     }
 
     public Timestamp getTimeSent() {
@@ -100,5 +89,13 @@ public class Message {
 
     public void setContextAccommodation(Accommodation contextAccommodation) {
         this.contextAccommodation = contextAccommodation;
+    }
+
+    public ImageAddition getImage() {
+        return image;
+    }
+
+    public void setImage(ImageAddition image) {
+        this.image = image;
     }
 }

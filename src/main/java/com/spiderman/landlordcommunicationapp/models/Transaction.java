@@ -12,18 +12,19 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "transactionid")
     private int id;
+
     @NotNull
     @Column(name = "dateoftransaction")
     private Timestamp dateOfTransaction;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "bankaccountid")
+    @JoinColumn(name = "TenantBankAccount")
     private BankAccount tenantBankAccount;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "bankaccountid")
+    @JoinColumn(name = "LandlordBankAccount")
     private BankAccount landlordBankAccount;
 
     @NotNull

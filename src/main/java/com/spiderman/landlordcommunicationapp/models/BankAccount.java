@@ -14,7 +14,7 @@ public class BankAccount {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "owner")
     private User owner;
 
     @NotNull

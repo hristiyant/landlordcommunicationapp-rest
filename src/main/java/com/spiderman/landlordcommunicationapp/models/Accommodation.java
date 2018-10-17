@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 @Table(name = "accommodations")
 public class Accommodation {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accommodationid")
@@ -16,23 +15,21 @@ public class Accommodation {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "locationid")
+    @JoinColumn(name = "location")
     private Location location;
 
     @NotNull
-//    @OneToOne
-//    @JoinColumn(name = "addressid")
     @Column(name = "address")
     private String address;
 
     //todo careful about cycle!
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "tenant")
     private User tenant;
 
     @ManyToOne
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "landlord")
     private User landlord;
 
     @NotNull

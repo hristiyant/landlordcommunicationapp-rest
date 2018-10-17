@@ -14,6 +14,10 @@ public class Rating {
     @Column(name = "rating")
     private double rating;
 
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private User user;
+
     public Rating() {
     }
 

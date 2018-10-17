@@ -38,21 +38,13 @@ public class User {
     private Boolean isLandlord;
 
     @OneToOne
-    @JoinColumn(name = "bankaccountid")
+    @JoinColumn(name = "BankAccount")
     private BankAccount bankAccount;
 
-
-    //todo double check this section
-//    how to/or is it even possible to fill the List<Double> from table rating without creating Rating entity?
-//    @OneToMany
-//    @JoinColumn(name = "userid", table = "ratings")
-//    @Column(table = "ratings", name = "rating")
-    @OneToMany
-    @JoinColumn(name = "userid")
+    @OneToMany(mappedBy = "user")
     private List<Rating> ratings;
 
     @OneToMany
-    @JoinColumn(name = "userid")
     private List<Accommodation> accommodations;
 
     public int getId() {
