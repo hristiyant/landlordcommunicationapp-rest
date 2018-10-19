@@ -1,4 +1,4 @@
 package com.spiderman.landlordcommunicationapp.repositories;
 
-public class SqlRepository {
+public class TransactionRepository {
 }
