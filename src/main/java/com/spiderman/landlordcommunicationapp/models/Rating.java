@@ -21,6 +21,11 @@ public class Rating {
     public Rating() {
     }
 
+    public Rating(User user, double rating) {
+        this.rating = rating;
+        this.user = user;
+    }
+
     public int getId() {
         return id;
     }

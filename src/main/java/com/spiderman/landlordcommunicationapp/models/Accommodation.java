@@ -75,6 +75,34 @@ public class Accommodation {
         this.dueDate = dueDate;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public User getTenant() {
+        return tenant;
+    }
+
+    public User getLandlord() {
+        return landlord;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public Timestamp getDueDate() {
+        return dueDate;
+    }
+
     public List<Message> getMessages() {
         return messages;
     }
