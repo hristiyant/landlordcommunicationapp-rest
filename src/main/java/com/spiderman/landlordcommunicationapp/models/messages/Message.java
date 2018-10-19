@@ -1,7 +1,6 @@
 package com.spiderman.landlordcommunicationapp.models.messages;
 
 import com.spiderman.landlordcommunicationapp.models.Accommodation;
-import com.spiderman.landlordcommunicationapp.models.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,17 +19,14 @@ public class Message {
     @Column(name = "timesent")
     private Timestamp timeSent;
 
-    @ManyToOne
-    @JoinColumn(name = "tenant")
-    private User tenant;
+    @Column(name = "isSenderLandlord")
+    private boolean isSenderLandlord;
 
-    @ManyToOne
-    @JoinColumn(name = "landlord")
-    private User landlord;
+    @Column(name = "isDeleted")
+    private boolean isDeleted;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "accommodation")
     private Accommodation contextAccommodation;
 
     @Column(name = "text")
@@ -67,35 +63,35 @@ public class Message {
         this.timeSent = timeSent;
     }
 
-    public User getTenant() {
-        return tenant;
-    }
-
-    public void setTenant(User tenant) {
-        this.tenant = tenant;
-    }
-
-    public User getLandlord() {
-        return landlord;
-    }
-
-    public void setLandlord(User landlord) {
-        this.landlord = landlord;
-    }
-
-    public Accommodation getContextAccommodation() {
-        return contextAccommodation;
-    }
-
-    public void setContextAccommodation(Accommodation contextAccommodation) {
-        this.contextAccommodation = contextAccommodation;
-    }
-
     public ImageAddition getImage() {
         return image;
     }
 
     public void setImage(ImageAddition image) {
         this.image = image;
+    }
+
+    public Accommodation getContextAccommodation() {
+        return contextAccommodation;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public void setContextAccommodation(Accommodation contextAccommodation) {
+        this.contextAccommodation = contextAccommodation;
+    }
+
+    public boolean isSenderLandlord() {
+        return isSenderLandlord;
+    }
+
+    public void setSenderLandlord(boolean senderLandlord) {
+        isSenderLandlord = senderLandlord;
     }
 }

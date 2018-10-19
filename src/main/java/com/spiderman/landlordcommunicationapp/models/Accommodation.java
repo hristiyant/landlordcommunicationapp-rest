@@ -1,8 +1,11 @@
 package com.spiderman.landlordcommunicationapp.models;
 
+import com.spiderman.landlordcommunicationapp.models.messages.Message;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "accommodations")
@@ -40,6 +43,9 @@ public class Accommodation {
     @Column(name = "duedate")
     private Timestamp dueDate;
 
+    @OneToMany
+    @JoinColumn(name = "contextAccomodation")
+    private List<Message> messages;
 
     public void setId(int id) {
         this.id = id;
@@ -67,5 +73,13 @@ public class Accommodation {
 
     public void setDueDate(Timestamp dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }
