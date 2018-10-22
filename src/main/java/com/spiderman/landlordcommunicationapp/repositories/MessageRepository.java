@@ -13,6 +13,8 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 
     List<Message> findAllByContextAccommodationAndIsDeletedFalse(@NotNull Accommodation contextAccommodation);
 
+    Message findById(int id);
+
     List<Message> findAll();
 
     Message save(Message message);

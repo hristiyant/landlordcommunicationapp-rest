@@ -26,7 +26,6 @@ public class Accommodation {
     private String address;
 
     //todo careful about cycle!
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "tenant")
     private User tenant;

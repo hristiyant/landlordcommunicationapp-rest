@@ -13,11 +13,6 @@ public class BankAccount {
     private int id;
 
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "owner")
-    private User owner;
-
-    @NotNull
     @Column(name = "accountnumber")
     private String accountNumber;
 
@@ -31,14 +26,6 @@ public class BankAccount {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
     }
 
     public String getAccountNumber() {
