@@ -17,6 +17,7 @@ public class WebSecurityConfig extends
 //      .headers().disable();
 
         http.authorizeRequests().antMatchers("/").permitAll();
+        http.csrf().disable();
 //                .authorizeRequests()
 //                .antMatchers("/Accommodations").authenticated()
 //                .and().httpBasic().authenticationEntryPoint((request, response, authException) -> {
