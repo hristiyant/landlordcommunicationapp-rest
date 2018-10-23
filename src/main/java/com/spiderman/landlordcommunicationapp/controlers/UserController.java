@@ -34,10 +34,10 @@ public class UserController {
         return userService.save(user);
     }
 
-    @GetMapping("/rateUser")
-    public User rateUser(@RequestBody User user, @RequestBody double rating) {
-        return userService.rateUser(user, rating);
-    }
+//    @GetMapping("/rateUser")
+//    public User rateUser(@RequestBody User user, @RequestBody double rating) {
+//        return userService.rateUser(user, rating);
+//    }
 
 
 }

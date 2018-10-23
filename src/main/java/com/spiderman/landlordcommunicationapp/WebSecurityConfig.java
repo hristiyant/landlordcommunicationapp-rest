@@ -13,8 +13,10 @@ public class WebSecurityConfig extends
         WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
-        http
-      .headers().disable();
+//        http
+//      .headers().disable();
+
+        http.authorizeRequests().antMatchers("/").permitAll();
 //                .authorizeRequests()
 //                .antMatchers("/Accommodations").authenticated()
 //                .and().httpBasic().authenticationEntryPoint((request, response, authException) -> {

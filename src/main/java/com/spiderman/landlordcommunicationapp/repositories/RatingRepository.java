@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface RatingRepository extends JpaRepository<Rating, Integer> {
 
-    List<Rating> findAllByUser(User user);
+    List<Rating> findAllByRatedUser(User ratedUser);
 
     Rating save(Rating rating);
 }

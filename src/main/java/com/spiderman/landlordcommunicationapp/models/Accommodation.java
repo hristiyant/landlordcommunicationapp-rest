@@ -5,7 +5,6 @@ import com.spiderman.landlordcommunicationapp.models.messages.Message;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Table(name = "accommodations")
@@ -25,7 +24,6 @@ public class Accommodation {
     @Column(name = "address")
     private String address;
 
-    //todo careful about cycle!
     @ManyToOne
     @JoinColumn(name = "tenant")
     private User tenant;
@@ -42,9 +40,11 @@ public class Accommodation {
     @Column(name = "duedate")
     private Timestamp dueDate;
 
-    @OneToMany
-    @JoinColumn(name = "contextAccomodation")
-    private List<Message> messages;
+    @Column(name = "duelastsentdate")
+    private Timestamp dueLastSentDate;
+
+    public Accommodation() {
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -102,11 +102,11 @@ public class Accommodation {
         return dueDate;
     }
 
-    public List<Message> getMessages() {
-        return messages;
+    public Timestamp getDueLastSentDate() {
+        return dueLastSentDate;
     }
 
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
+    public void setDueLastSentDate(Timestamp dueLastSentDate) {
+        this.dueLastSentDate = dueLastSentDate;
     }
 }

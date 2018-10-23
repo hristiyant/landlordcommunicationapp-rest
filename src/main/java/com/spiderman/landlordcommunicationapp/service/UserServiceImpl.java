@@ -32,10 +32,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User rateUser(User user, double rating) {
-        Rating newRating = new Rating(user, rating);
+    public User rateUser(User ratedUser, User sourceUser, double rating) {
+        Rating newRating = new Rating(ratedUser, sourceUser, rating);
         ratingRepository.save(newRating);
-        user.getRatings().add(newRating);
-        return user;
+        return ratedUser;
     }
 }

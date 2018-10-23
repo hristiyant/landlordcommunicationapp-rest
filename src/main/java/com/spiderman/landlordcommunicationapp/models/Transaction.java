@@ -28,6 +28,11 @@ public class Transaction {
     private BankAccount landlordBankAccount;
 
     @NotNull
+    @ManyToOne
+    @JoinColumn(name = "accommodation")
+    private Accommodation accommodation;
+
+    @NotNull
     @Column(name = "transactionamount")
     private double transactionAmount;
 

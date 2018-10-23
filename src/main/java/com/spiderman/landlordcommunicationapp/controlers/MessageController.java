@@ -22,7 +22,7 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @GetMapping("/forThisAccommodation")
+    @PostMapping("/forThisAccommodation")
     public List<Message> getMessagesByAccommodationAndIsDeletedFalse(@RequestBody Accommodation accommodation) {
         return messageService.getMessagesByAccommodationAndIsDeletedFalse(accommodation);
     }

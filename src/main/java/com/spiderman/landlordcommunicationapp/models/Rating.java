@@ -15,15 +15,19 @@ public class Rating {
     private double rating;
 
     @ManyToOne
-    @JoinColumn(name = "user")
-    private User user;
+    @JoinColumn(name = "rateduser")
+    private User ratedUser;
+
+    @ManyToOne
+    @JoinColumn(name = "sourceuser")
+    private User sourceUser;
 
     public Rating() {
     }
 
-    public Rating(User user, double rating) {
+    public Rating(User ratedUser, User sourceUser, double rating) {
         this.rating = rating;
-        this.user = user;
+        this.ratedUser = ratedUser;
     }
 
     public int getId() {
@@ -40,5 +44,21 @@ public class Rating {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public User getRatedUser() {
+        return ratedUser;
+    }
+
+    public void setRatedUser(User ratedUser) {
+        this.ratedUser = ratedUser;
+    }
+
+    public User getSourceUser() {
+        return sourceUser;
+    }
+
+    public void setSourceUser(User sourceUser) {
+        this.sourceUser = sourceUser;
     }
 }

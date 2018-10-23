@@ -3,11 +3,9 @@ package com.spiderman.landlordcommunicationapp.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
-//@SecondaryTable(name = "ratings")
 public class User {
 
     @Id
@@ -40,12 +38,6 @@ public class User {
     @OneToOne
     @JoinColumn(name = "BankAccount")
     private BankAccount bankAccount;
-
-    @OneToMany(mappedBy = "user")
-    private List<Rating> ratings;
-
-    @OneToMany
-    private List<Accommodation> accommodations;
 
     public int getId() {
         return id;
@@ -101,21 +93,5 @@ public class User {
 
     public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
-    }
-
-    public List<Rating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
-    }
-
-    public List<Accommodation> getAccommodations() {
-        return accommodations;
-    }
-
-    public void setAccommodations(List<Accommodation> accommodations) {
-        this.accommodations = accommodations;
     }
 }

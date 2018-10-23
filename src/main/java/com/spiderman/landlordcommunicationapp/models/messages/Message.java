@@ -1,6 +1,7 @@
 package com.spiderman.landlordcommunicationapp.models.messages;
 
 import com.spiderman.landlordcommunicationapp.models.Accommodation;
+import com.spiderman.landlordcommunicationapp.models.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,14 +20,12 @@ public class Message {
     @Column(name = "timesent")
     private Timestamp timeSent;
 
-    @Column(name = "isSenderLandlord")
-    private boolean isSenderLandlord;
-
     @Column(name = "isDeleted")
     private boolean isDeleted;
 
     @NotNull
     @ManyToOne
+    @JoinColumn(name =  "contextaccommodation")
     private Accommodation contextAccommodation;
 
     @Column(name = "text")
@@ -35,6 +34,14 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "image")
     private ImageAddition image;
+
+    @ManyToOne
+    @JoinColumn(name = "sender")
+    private User sender;
+
+    @ManyToOne
+    @JoinColumn(name = "receiver")
+    private User receiver;
 
     public Message() {
     }
@@ -87,11 +94,19 @@ public class Message {
         this.contextAccommodation = contextAccommodation;
     }
 
-    public boolean isSenderLandlord() {
-        return isSenderLandlord;
+    public User getSender() {
+        return sender;
     }
 
-    public void setSenderLandlord(boolean senderLandlord) {
-        isSenderLandlord = senderLandlord;
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 }

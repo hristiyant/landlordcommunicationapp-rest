@@ -9,5 +9,5 @@ public interface UserService {
 
     User save(User user);
 
-    User rateUser(User user, double rating);
+    User rateUser(User ratedUser, User sourceUser, double rating);
 }

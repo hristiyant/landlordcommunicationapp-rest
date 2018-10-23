@@ -7,12 +7,15 @@ import com.spiderman.landlordcommunicationapp.service.utils.DeleteTimeManagement
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class MessageServiceImpl implements MessageService {
 
+    private static final int DAYS_OF_VALIDITY_OF_THE_MESSAGES = 90;
     private final MessageRepository messageRepository;
     private DeleteTimeManagement deleteTimeManagement;
 
@@ -24,24 +27,25 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> getMessagesByAccommodationAndIsDeletedFalse(Accommodation accommodation) {
 
-        Date currentDate = new Date();
-        //todo https://www.joda.org/joda-time/ for 3 months back!
+        Instant now = Instant.now(); //current date
+        Instant before = now.minus(Duration.ofDays(DAYS_OF_VALIDITY_OF_THE_MESSAGES));
+        Date dateThreeMonthsFromNow = Date.from(before);
+
         if (deleteTimeManagement == null) {
             deleteTimeManagement = new DeleteTimeManagement();
-            deleteTimeManagement.setDateOfLastDelete(currentDate);
-            deleteMessagesBeforeThisDate(currentDate);
+            deleteTimeManagement.setDateOfLastDelete(dateThreeMonthsFromNow);
+            deleteMessagesBeforeThisDate(dateThreeMonthsFromNow);
         }
 
-        if (deleteTimeManagement.getDateOfLastDelete().before(currentDate)) {
-            deleteMessagesBeforeThisDate(currentDate);
-            deleteTimeManagement.setDateOfLastDelete(currentDate);
+        if (deleteTimeManagement.getDateOfLastDelete().before(dateThreeMonthsFromNow)) {
+            deleteMessagesBeforeThisDate(dateThreeMonthsFromNow);
+            deleteTimeManagement.setDateOfLastDelete(dateThreeMonthsFromNow);
         }
 
         return messageRepository.findAllByContextAccommodationAndIsDeletedFalse(accommodation);
     }
 
     private void deleteMessagesBeforeThisDate(Date date) {
-        // List<Message> allMessages = messageRepository.findAll();
         messageRepository.findAll().stream()
                 .filter(x -> x.getTimeSent().before(date)&&x.isDeleted())
                 .forEach(x ->
