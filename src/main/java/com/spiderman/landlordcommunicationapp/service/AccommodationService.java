@@ -17,4 +17,7 @@ public interface AccommodationService {
 
     Accommodation removeTenantFromThisAccommodation(Accommodation accommodation);
 
+    Accommodation getAccommodationByItsId(int id);
+
+    List<Accommodation> getAccommodationByItsUserId(int userId);
 }

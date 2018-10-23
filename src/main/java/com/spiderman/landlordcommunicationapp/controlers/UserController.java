@@ -1,6 +1,5 @@
 package com.spiderman.landlordcommunicationapp.controlers;
 
-import com.spiderman.landlordcommunicationapp.models.Rating;
 import com.spiderman.landlordcommunicationapp.models.User;
 import com.spiderman.landlordcommunicationapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +25,23 @@ public class UserController {
         return userService.getAll();
     }
 
+    @GetMapping("/byId/{userId}")
+    public User getUserById(@PathVariable int userId) {
+        return userService.getUserById(userId);
+    }
+
+    @GetMapping("/tenants")
+    public List<User> getAllTenants() {
+        return userService.getAllUsersWhoAreTenants();
+    }
+
+    @GetMapping("/landlords")
+    public List<User> getAllLandlords() {
+        return userService.getAllUsersWhoAreLandlords();
+    }
+
     @PostMapping("/new")
     public User saveUser(@RequestBody User user) {
         return userService.save(user);
     }
-
-//    @GetMapping("/rateUser")
-//    public User rateUser(@RequestBody User user, @RequestBody double rating) {
-//        return userService.rateUser(user, rating);
-//    }
-
-
 }

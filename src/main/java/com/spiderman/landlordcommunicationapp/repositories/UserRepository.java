@@ -15,5 +15,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findAllByIsLandlordTrue();
 
+    User findById(int id);
+
     User save(User user);
 }

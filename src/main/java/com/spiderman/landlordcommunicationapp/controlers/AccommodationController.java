@@ -45,4 +45,14 @@ public class AccommodationController {
     public Accommodation removeTenantFromThisAccommodation(@RequestBody Accommodation accommodation) {
         return accommodationService.removeTenantFromThisAccommodation(accommodation);
     }
+
+    @GetMapping("/byId/{accommodationId}")
+    public Accommodation getAccommodationByItsId(@PathVariable int accommodationId) {
+        return accommodationService.getAccommodationByItsId(accommodationId);
+    }
+
+    @GetMapping("/byUserId/{userId}")
+    public List<Accommodation> getAllAccommodationsForUserWithThisId(@PathVariable int userId) {
+        return accommodationService.getAccommodationByItsUserId(userId);
+    }
 }

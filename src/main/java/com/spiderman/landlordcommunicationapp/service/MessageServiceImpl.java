@@ -45,6 +45,11 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.findAllByContextAccommodationAndIsDeletedFalse(accommodation);
     }
 
+    @Override
+    public List<Message> getMessagesByAccommodationIdAndIsDeletedFalse(int accommodationId) {
+        return messageRepository.findAllByContextAccommodationIdAndIsDeletedFalse(accommodationId);
+    }
+
     private void deleteMessagesBeforeThisDate(Date date) {
         messageRepository.findAll().stream()
                 .filter(x -> x.getTimeSent().before(date)&&x.isDeleted())
@@ -65,4 +70,11 @@ public class MessageServiceImpl implements MessageService {
         message.setDeleted(true);
         return messageRepository.save(message);
     }
+
+    @Override
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
+    }
+
+
 }

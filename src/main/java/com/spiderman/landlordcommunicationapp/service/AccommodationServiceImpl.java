@@ -3,6 +3,7 @@ package com.spiderman.landlordcommunicationapp.service;
 import com.spiderman.landlordcommunicationapp.models.Accommodation;
 import com.spiderman.landlordcommunicationapp.models.User;
 import com.spiderman.landlordcommunicationapp.repositories.AccommodationRepository;
+import com.spiderman.landlordcommunicationapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,12 @@ import java.util.stream.Collectors;
 @Service
 public class AccommodationServiceImpl implements AccommodationService{
     private final AccommodationRepository accommodationRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AccommodationServiceImpl(AccommodationRepository accommodationRepository) {
+    public AccommodationServiceImpl(AccommodationRepository accommodationRepository, UserRepository userRepository) {
         this.accommodationRepository = accommodationRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -47,5 +50,28 @@ public class AccommodationServiceImpl implements AccommodationService{
     public Accommodation removeTenantFromThisAccommodation(Accommodation accommodation) {
         accommodation.setTenant(null);
         return accommodation;
+    }
+
+    @Override
+    public Accommodation getAccommodationByItsId(int id) {
+        return accommodationRepository.findById(id);
+    }
+
+    @Override
+    public List<Accommodation> getAccommodationByItsUserId(int userId) {
+
+        if (userRepository.findById(userId).getLandlord()) {
+            return getAccommodationByItsLandlordId(userId);
+        }
+
+        return getAccommodationByItsTenantId(userId);
+    }
+    //landlord and tenant re different fields in Accommodation
+    private List<Accommodation> getAccommodationByItsLandlordId(int landlordId) {
+        return accommodationRepository.findAllByLandlordId(landlordId);
+    }
+
+    private List<Accommodation> getAccommodationByItsTenantId(int tenantId) {
+        return accommodationRepository.findAllByTenantId(tenantId);
     }
 }

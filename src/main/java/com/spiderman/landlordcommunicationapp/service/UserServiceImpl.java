@@ -27,8 +27,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllUsersWhoAreTenants() {
+        return userRepository.findAllByIsLandlordFalse();
+    }
+
+    @Override
+    public List<User> getAllUsersWhoAreLandlords() {
+        return userRepository.findAllByIsLandlordTrue();
+    }
+
+    @Override
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public User getUserById(int userId) {
+        return userRepository.findById(userId);
     }
 
     @Override
