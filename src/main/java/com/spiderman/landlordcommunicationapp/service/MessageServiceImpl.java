@@ -26,22 +26,6 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> getMessagesByAccommodationAndIsDeletedFalse(Accommodation accommodation) {
-
-        Instant now = Instant.now(); //current date
-        Instant before = now.minus(Duration.ofDays(DAYS_OF_VALIDITY_OF_THE_MESSAGES));
-        Date dateThreeMonthsFromNow = Date.from(before);
-
-        if (deleteTimeManagement == null) {
-            deleteTimeManagement = new DeleteTimeManagement();
-            deleteTimeManagement.setDateOfLastDelete(dateThreeMonthsFromNow);
-            deleteMessagesBeforeThisDate(dateThreeMonthsFromNow);
-        }
-
-        if (deleteTimeManagement.getDateOfLastDelete().before(dateThreeMonthsFromNow)) {
-            deleteMessagesBeforeThisDate(dateThreeMonthsFromNow);
-            deleteTimeManagement.setDateOfLastDelete(dateThreeMonthsFromNow);
-        }
-
         return messageRepository.findAllByContextAccommodationAndIsDeletedFalse(accommodation);
     }
 
@@ -50,15 +34,7 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.findAllByContextAccommodationIdAndIsDeletedFalse(accommodationId);
     }
 
-    private void deleteMessagesBeforeThisDate(Date date) {
-        messageRepository.findAll().stream()
-                .filter(x -> x.getTimeSent().before(date)&&x.isDeleted())
-                .forEach(x ->
-                {
-                    x.setDeleted(true);
-                    saveMessage(x);
-                });
-    }
+
 
     @Override
     public Message saveMessage(Message message) {
@@ -74,6 +50,37 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> getAllMessages() {
         return messageRepository.findAll();
+    }
+
+    @Override
+    public void markAllMessagesOlderThan3MonthsAsDeleted() {
+        Instant now = Instant.now();
+        Instant before3Months = now.minus(Duration.ofDays(DAYS_OF_VALIDITY_OF_THE_MESSAGES));
+        Date dateThreeMonthsFromNow = Date.from(before3Months);
+
+        deleteMessagesBeforeThisDate(dateThreeMonthsFromNow);
+
+
+//        if (deleteTimeManagement == null) {
+//            deleteTimeManagement = new DeleteTimeManagement();
+//            deleteTimeManagement.setDateOfLastDelete(dateThreeMonthsFromNow);
+//            deleteMessagesBeforeThisDate(dateThreeMonthsFromNow);
+//        }
+//
+//        if (deleteTimeManagement.getDateOfLastDelete().before(dateThreeMonthsFromNow)) {
+//            deleteMessagesBeforeThisDate(dateThreeMonthsFromNow);
+//            deleteTimeManagement.setDateOfLastDelete(dateThreeMonthsFromNow);
+//        }
+//
+    }
+    private void deleteMessagesBeforeThisDate(Date date) {
+        messageRepository.findAll().stream()
+                .filter(x -> x.getTimeSent().before(date) && x.isDeleted() == false)
+                .forEach(x ->
+                {
+                    x.setDeleted(true);
+                    saveMessage(x);
+                });
     }
 
 

@@ -16,4 +16,6 @@ public interface MessageService {
     Message deleteMessage(Message message);
 
     List<Message> getAllMessages();
+
+    void markAllMessagesOlderThan3MonthsAsDeleted();
 }

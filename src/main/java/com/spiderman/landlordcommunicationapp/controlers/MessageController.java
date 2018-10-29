@@ -46,4 +46,9 @@ public class MessageController {
     public Message deleteMessage(@RequestBody Message messageToDelete) {
         return messageService.deleteMessage(messageToDelete);
     }
+
+    @PutMapping("/deleteOlderMessages")
+    public void deleteAllMessagesThatAreOlderThan3Months() {
+        messageService.markAllMessagesOlderThan3MonthsAsDeleted();
+    }
 }
