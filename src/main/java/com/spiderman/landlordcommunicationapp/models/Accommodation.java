@@ -1,7 +1,5 @@
 package com.spiderman.landlordcommunicationapp.models;
 
-import com.spiderman.landlordcommunicationapp.models.messages.Message;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -14,11 +12,6 @@ public class Accommodation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accommodationid")
     private int id;
-
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "location")
-    private Location location;
 
     @NotNull
     @Column(name = "address")
@@ -36,6 +29,12 @@ public class Accommodation {
     @Column(name = "price")
     private double price;
 
+    @Column(name = "longitude")
+    private double longitude;
+
+    @Column(name = "latitude")
+    private double latitude;
+
     @NotNull
     @Column(name = "duedate")
     private Timestamp dueDate;
@@ -48,10 +47,6 @@ public class Accommodation {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     public void setAddress(String address) {
@@ -76,10 +71,6 @@ public class Accommodation {
 
     public int getId() {
         return id;
-    }
-
-    public Location getLocation() {
-        return location;
     }
 
     public String getAddress() {
@@ -108,5 +99,21 @@ public class Accommodation {
 
     public void setDueLastSentDate(Timestamp dueLastSentDate) {
         this.dueLastSentDate = dueLastSentDate;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 }

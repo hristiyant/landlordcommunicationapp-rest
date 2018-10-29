@@ -1,4 +1,4 @@
-package com.spiderman.landlordcommunicationapp.models.messages;
+package com.spiderman.landlordcommunicationapp.models;
 
 import com.spiderman.landlordcommunicationapp.models.Accommodation;
 import com.spiderman.landlordcommunicationapp.models.User;
@@ -31,9 +31,8 @@ public class Message {
     @Column(name = "text")
     private String textOfTheMessage;
 
-    @ManyToOne
-    @JoinColumn(name = "image")
-    private ImageAddition image;
+    @Column(name = "imageUrl")
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "sender")
@@ -70,14 +69,6 @@ public class Message {
         this.timeSent = timeSent;
     }
 
-    public ImageAddition getImage() {
-        return image;
-    }
-
-    public void setImage(ImageAddition image) {
-        this.image = image;
-    }
-
     public Accommodation getContextAccommodation() {
         return contextAccommodation;
     }
@@ -108,5 +99,13 @@ public class Message {
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

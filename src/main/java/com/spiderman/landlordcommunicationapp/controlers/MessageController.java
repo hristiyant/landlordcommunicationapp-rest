@@ -1,7 +1,7 @@
 package com.spiderman.landlordcommunicationapp.controlers;
 
 import com.spiderman.landlordcommunicationapp.models.Accommodation;
-import com.spiderman.landlordcommunicationapp.models.messages.Message;
+import com.spiderman.landlordcommunicationapp.models.Message;
 import com.spiderman.landlordcommunicationapp.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

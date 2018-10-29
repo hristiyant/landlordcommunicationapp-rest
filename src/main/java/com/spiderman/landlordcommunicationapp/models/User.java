@@ -39,6 +39,9 @@ public class User {
     @JoinColumn(name = "BankAccount")
     private BankAccount bankAccount;
 
+    @Column(name = "imageUrl")
+    private String imageOfTheUser;
+
     public int getId() {
         return id;
     }
@@ -93,5 +96,13 @@ public class User {
 
     public void setBankAccount(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
+    }
+
+    public String getImageOfTheUser() {
+        return imageOfTheUser;
+    }
+
+    public void setImageOfTheUser(String imageOfTheUser) {
+        this.imageOfTheUser = imageOfTheUser;
     }
 }

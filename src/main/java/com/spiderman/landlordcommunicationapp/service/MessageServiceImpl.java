@@ -1,7 +1,7 @@
 package com.spiderman.landlordcommunicationapp.service;
 
 import com.spiderman.landlordcommunicationapp.models.Accommodation;
-import com.spiderman.landlordcommunicationapp.models.messages.Message;
+import com.spiderman.landlordcommunicationapp.models.Message;
 import com.spiderman.landlordcommunicationapp.repositories.MessageRepository;
 import com.spiderman.landlordcommunicationapp.service.utils.DeleteTimeManagement;
 import org.springframework.beans.factory.annotation.Autowired;
