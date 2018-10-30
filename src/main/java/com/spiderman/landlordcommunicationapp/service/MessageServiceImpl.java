@@ -25,11 +25,6 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> getMessagesByAccommodationAndIsDeletedFalse(Accommodation accommodation) {
-        return messageRepository.findAllByContextAccommodationAndIsDeletedFalse(accommodation);
-    }
-
-    @Override
     public List<Message> getMessagesByAccommodationIdAndIsDeletedFalse(int accommodationId) {
         return messageRepository.findAllByContextAccommodationIdAndIsDeletedFalse(accommodationId);
     }

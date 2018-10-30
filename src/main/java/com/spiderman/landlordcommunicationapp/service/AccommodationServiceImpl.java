@@ -21,17 +21,16 @@ public class AccommodationServiceImpl implements AccommodationService{
         this.userRepository = userRepository;
     }
 
-
     @Override
     public List<Accommodation> getAllAccommodations() {
         return accommodationRepository.findAll();
     }
 
     @Override
-    public List<Accommodation> getAllAccommodationsOfThisUser(User user) {
+    public List<Accommodation> getAllAccommodationsByItsUserId(int userId) {
 
         return  accommodationRepository.findAll().stream()
-                .filter(x -> x.getLandlord().equals(user)||x.getTenant().equals(user))
+                .filter(x -> x.getLandlord().getId() == userId || x.getTenant().getId() == userId)
                 .collect(Collectors.toList());
     }
 
@@ -55,23 +54,5 @@ public class AccommodationServiceImpl implements AccommodationService{
     @Override
     public Accommodation getAccommodationByItsId(int id) {
         return accommodationRepository.findById(id);
-    }
-
-    @Override
-    public List<Accommodation> getAccommodationByItsUserId(int userId) {
-
-        if (userRepository.findById(userId).getLandlord()) {
-            return getAccommodationByItsLandlordId(userId);
-        }
-
-        return getAccommodationByItsTenantId(userId);
-    }
-    //landlord and tenant re different fields in Accommodation
-    private List<Accommodation> getAccommodationByItsLandlordId(int landlordId) {
-        return accommodationRepository.findAllByLandlordId(landlordId);
-    }
-
-    private List<Accommodation> getAccommodationByItsTenantId(int tenantId) {
-        return accommodationRepository.findAllByTenantId(tenantId);
     }
 }

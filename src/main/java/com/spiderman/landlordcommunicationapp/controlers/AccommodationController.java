@@ -1,8 +1,10 @@
 package com.spiderman.landlordcommunicationapp.controlers;
 
 import com.spiderman.landlordcommunicationapp.models.Accommodation;
+import com.spiderman.landlordcommunicationapp.models.Message;
 import com.spiderman.landlordcommunicationapp.models.User;
 import com.spiderman.landlordcommunicationapp.service.AccommodationService;
+import com.spiderman.landlordcommunicationapp.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,12 @@ public class AccommodationController {
 
     private final AccommodationService accommodationService;
 
+    private final MessageService messageService;
+
     @Autowired
-    public AccommodationController(AccommodationService accommodationService) {
+    public AccommodationController(AccommodationService accommodationService, MessageService messageService) {
         this.accommodationService = accommodationService;
+        this.messageService = messageService;
     }
 
     @GetMapping
@@ -26,14 +31,19 @@ public class AccommodationController {
         return accommodationService.getAllAccommodations();
     }
 
-    @GetMapping("/byUser")
-    public List<Accommodation> getAllAccommodationsOfThisUser(@RequestBody User user) {
-        return accommodationService.getAllAccommodationsOfThisUser(user);
+    @GetMapping("/{accommodationId}")
+    public Accommodation getAccommodationByItsId(@PathVariable int accommodationId) {
+        return accommodationService.getAccommodationByItsId(accommodationId);
     }
 
-    @PostMapping("/new")
+    @PostMapping
     public Accommodation save(@RequestBody Accommodation accommodation) {
         return accommodationService.save(accommodation);
+    }
+
+    @GetMapping("/{accommodationId}/Messages}")
+    public List<Message> getMessagesByAccommodationIdAndIsDeletedFalse(@PathVariable int accommodationId) {
+        return messageService.getMessagesByAccommodationIdAndIsDeletedFalse(accommodationId);
     }
 
     @PutMapping("/newTenant")
@@ -44,15 +54,5 @@ public class AccommodationController {
     @PutMapping("freeThisAccommodation")
     public Accommodation removeTenantFromThisAccommodation(@RequestBody Accommodation accommodation) {
         return accommodationService.removeTenantFromThisAccommodation(accommodation);
-    }
-
-    @GetMapping("/byId/{accommodationId}")
-    public Accommodation getAccommodationByItsId(@PathVariable int accommodationId) {
-        return accommodationService.getAccommodationByItsId(accommodationId);
-    }
-
-    @GetMapping("/byUserId/{userId}")
-    public List<Accommodation> getAllAccommodationsForUserWithThisId(@PathVariable int userId) {
-        return accommodationService.getAccommodationByItsUserId(userId);
     }
 }

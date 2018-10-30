@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface MessageService {
 
-    List<Message> getMessagesByAccommodationAndIsDeletedFalse(Accommodation accommodation);
-
     List<Message> getMessagesByAccommodationIdAndIsDeletedFalse(int accommodationId);
 
     Message saveMessage(Message message);

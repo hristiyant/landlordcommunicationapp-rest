@@ -9,7 +9,7 @@ public interface AccommodationService {
 
     List<Accommodation> getAllAccommodations();
 
-    List<Accommodation> getAllAccommodationsOfThisUser(User user);
+    List<Accommodation> getAllAccommodationsByItsUserId(int userId);
 
     Accommodation save(Accommodation accommodation);
 
@@ -18,6 +18,4 @@ public interface AccommodationService {
     Accommodation removeTenantFromThisAccommodation(Accommodation accommodation);
 
     Accommodation getAccommodationByItsId(int id);
-
-    List<Accommodation> getAccommodationByItsUserId(int userId);
 }

@@ -1,6 +1,8 @@
 package com.spiderman.landlordcommunicationapp.controlers;
 
+import com.spiderman.landlordcommunicationapp.models.Accommodation;
 import com.spiderman.landlordcommunicationapp.models.User;
+import com.spiderman.landlordcommunicationapp.service.AccommodationService;
 import com.spiderman.landlordcommunicationapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,9 +16,12 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final AccommodationService accommodationService;
+
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AccommodationService accommodationService) {
+        this.accommodationService = accommodationService;
         this.userService = userService;
     }
 
@@ -25,7 +30,12 @@ public class UserController {
         return userService.getAll();
     }
 
-    @GetMapping("/byId/{userId}")
+    @PostMapping
+    public User saveUser(@RequestBody User user) {
+        return userService.save(user);
+    }
+
+    @GetMapping("/{userId}")
     public User getUserById(@PathVariable int userId) {
         return userService.getUserById(userId);
     }
@@ -40,8 +50,8 @@ public class UserController {
         return userService.getAllUsersWhoAreLandlords();
     }
 
-    @PostMapping("/new")
-    public User saveUser(@RequestBody User user) {
-        return userService.save(user);
+    @GetMapping("/{userId}/Accommodations")
+    public List<Accommodation> getAllAccommodationsOfThisUser(@PathVariable int userId) {
+        return accommodationService.getAllAccommodationsByItsUserId(userId);
     }
 }

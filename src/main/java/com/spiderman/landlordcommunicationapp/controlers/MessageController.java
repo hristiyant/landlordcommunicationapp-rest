@@ -27,27 +27,17 @@ public class MessageController {
         return messageService.getAllMessages();
     }
 
-    @PostMapping("/forThisAccommodation")
-    public List<Message> getMessagesByAccommodationAndIsDeletedFalse(@RequestBody Accommodation accommodation) {
-        return messageService.getMessagesByAccommodationAndIsDeletedFalse(accommodation);
-    }
-
-    @GetMapping("/byAccommodation/{accommodationId}")
-    public List<Message> getMessagesByAccommodationIdAndIsDeletedFalse(@PathVariable int accommodationId) {
-        return messageService.getMessagesByAccommodationIdAndIsDeletedFalse(accommodationId);
-    }
-
-    @PostMapping("/new")
+    @PostMapping
     public Message saveMessage(@RequestBody Message message) {
         return messageService.saveMessage(message);
     }
 
-    @PutMapping("/delete")
+    @DeleteMapping
     public Message deleteMessage(@RequestBody Message messageToDelete) {
         return messageService.deleteMessage(messageToDelete);
     }
 
-    @PutMapping("/deleteOlderMessages")
+    @DeleteMapping("/old")
     public void deleteAllMessagesThatAreOlderThan3Months() {
         messageService.markAllMessagesOlderThan3MonthsAsDeleted();
     }
