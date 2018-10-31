@@ -16,4 +16,6 @@ public interface UserService {
     User getUserById(int userId);
 
     User rateUser(User ratedUser, User sourceUser, double rating);
+
+    User getUserByPhoneNumber(String phoneNumber);
 }

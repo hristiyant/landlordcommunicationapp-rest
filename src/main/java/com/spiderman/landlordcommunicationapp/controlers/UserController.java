@@ -62,4 +62,9 @@ public class UserController {
     public Double getThisUserRating(@PathVariable int userId) {
         return ratingService.getUserRatingByUserId(userId);
     }
+
+    @GetMapping("/phone/{phonenumber}")
+    public User getUserByPhoneNumber(@PathVariable String phonenumber) {
+        return userService.getUserByPhoneNumber(phonenumber);
+    }
 }

@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
         ratingRepository.save(newRating);
         return ratedUser;
     }
+
+    @Override
+    public User getUserByPhoneNumber(String phoneNumber) {
+        return userRepository.findByPhoneNumber(phoneNumber);
+    }
 }
