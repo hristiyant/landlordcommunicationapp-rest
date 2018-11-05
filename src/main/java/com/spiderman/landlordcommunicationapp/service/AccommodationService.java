@@ -18,4 +18,6 @@ public interface AccommodationService {
     Accommodation removeTenantFromThisAccommodation(Accommodation accommodation);
 
     Accommodation getAccommodationByItsId(int id);
+
+    Accommodation payRentForAccommodation(int id, Accommodation accommodation);
 }

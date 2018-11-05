@@ -41,6 +41,11 @@ public class AccommodationController {
         return accommodationService.save(accommodation);
     }
 
+    @PutMapping("/pay/{id}")
+    public Accommodation payRent(@PathVariable int id, @RequestBody Accommodation accommodation) {
+        return accommodationService.payRentForAccommodation(id, accommodation);
+    }
+
     @GetMapping("/{accommodationId}/Messages}")
     public List<Message> getMessagesByAccommodationIdAndIsDeletedFalse(@PathVariable int accommodationId) {
         return messageService.getMessagesByAccommodationIdAndIsDeletedFalse(accommodationId);
