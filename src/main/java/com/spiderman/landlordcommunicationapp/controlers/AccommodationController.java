@@ -41,6 +41,11 @@ public class AccommodationController {
         return accommodationService.save(accommodation);
     }
 
+    @PutMapping("/{id}")
+    public Accommodation editAccommodationById(@PathVariable int id, @RequestBody Accommodation accommodation) {
+        return accommodationService.editAccommodationById(id, accommodation);
+    }
+
     @PutMapping("/pay/{id}")
     public Accommodation payRent(@PathVariable int id, @RequestBody Accommodation accommodation) {
         return accommodationService.payRentForAccommodation(id, accommodation);

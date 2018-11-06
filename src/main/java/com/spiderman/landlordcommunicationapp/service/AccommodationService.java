@@ -20,4 +20,6 @@ public interface AccommodationService {
     Accommodation getAccommodationByItsId(int id);
 
     Accommodation payRentForAccommodation(int id, Accommodation accommodation);
+
+    Accommodation editAccommodationById(int id, Accommodation accommodation);
 }

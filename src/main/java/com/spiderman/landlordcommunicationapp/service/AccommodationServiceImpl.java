@@ -61,6 +61,11 @@ public class AccommodationServiceImpl implements AccommodationService{
     }
 
     @Override
+    public Accommodation editAccommodationById(int id, Accommodation accommodation) {
+        return accommodationRepository.save(accommodation);
+    }
+
+    @Override
     public Accommodation payRentForAccommodation(int id, Accommodation accommodation) {
 
         accommodation = payRent(id, accommodation);
@@ -68,7 +73,10 @@ public class AccommodationServiceImpl implements AccommodationService{
         return accommodationRepository.save(accommodation);
     }
 
-    private Accommodation payRent(int id, Accommodation accommodation) {
+    private Accommodation payRent(int id, Accommodation accommodation1) {
+
+        Accommodation accommodation = accommodationRepository.findById(id);
+
         LocalDate dateAfterOneMonth = LocalDate.now().plusMonths(1);
         Timestamp dueDate = accommodation.getDueDate();
 
