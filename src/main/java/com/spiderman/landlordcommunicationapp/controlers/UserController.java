@@ -63,6 +63,8 @@ public class UserController {
         return ratingService.getUserRatingByUserId(userId);
     }
 
+    @PostMapping("/{ratedUserId}")
+
     @GetMapping("/phone/{phonenumber}")
     public User getUserByPhoneNumber(@PathVariable String phonenumber) {
         return userService.getUserByPhoneNumber(phonenumber);
