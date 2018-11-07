@@ -1,5 +1,9 @@
 package com.spiderman.landlordcommunicationapp.service;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.*;
 import com.spiderman.landlordcommunicationapp.models.Accommodation;
 import com.spiderman.landlordcommunicationapp.models.Message;
 import com.spiderman.landlordcommunicationapp.repositories.MessageRepository;
@@ -7,6 +11,9 @@ import com.spiderman.landlordcommunicationapp.service.utils.DeleteTimeManagement
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
@@ -18,6 +25,8 @@ public class MessageServiceImpl implements MessageService {
     private static final int DAYS_OF_VALIDITY_OF_THE_MESSAGES = 90;
     private final MessageRepository messageRepository;
     private DeleteTimeManagement deleteTimeManagement;
+
+
 
     @Autowired
     public MessageServiceImpl(MessageRepository messageRepository) {
@@ -33,6 +42,35 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message saveMessage(Message message) {
+
+
+        try {
+            FileInputStream serviceAccount = new FileInputStream("D:/JAVA/FinalProject/LandlordCommunicationAppRestAPI/src/main/resources/serviceAccountKey.json");
+
+
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setDatabaseUrl("https://xperiachat.firebaseio.com")
+                    .build();
+
+             FirebaseApp.initializeApp(options);
+
+            FirebaseDatabase defaultDatabase = FirebaseDatabase.getInstance();
+
+            defaultDatabase.getReference().child("messagesDatabase").child("tennat1").setValue("newMessage", new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError error, DatabaseReference ref) {
+
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         return messageRepository.save(message);
     }
 
