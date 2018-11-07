@@ -67,13 +67,10 @@ public class AccommodationServiceImpl implements AccommodationService{
 
     @Override
     public Accommodation payRentForAccommodation(int id, Accommodation accommodation) {
-
-        accommodation = payRent(id, accommodation);
-
-        return accommodationRepository.save(accommodation);
+        return accommodationRepository.save(payRent(id));
     }
 
-    private Accommodation payRent(int id, Accommodation accommodation1) {
+    private Accommodation payRent(int id) {
 
         Accommodation accommodation = accommodationRepository.findById(id);
 
