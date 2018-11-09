@@ -92,19 +92,6 @@ public class MessageServiceImpl implements MessageService {
         Date dateThreeMonthsFromNow = Date.from(before3Months);
 
         deleteMessagesBeforeThisDate(dateThreeMonthsFromNow);
-
-
-//        if (deleteTimeManagement == null) {
-//            deleteTimeManagement = new DeleteTimeManagement();
-//            deleteTimeManagement.setDateOfLastDelete(dateThreeMonthsFromNow);
-//            deleteMessagesBeforeThisDate(dateThreeMonthsFromNow);
-//        }
-//
-//        if (deleteTimeManagement.getDateOfLastDelete().before(dateThreeMonthsFromNow)) {
-//            deleteMessagesBeforeThisDate(dateThreeMonthsFromNow);
-//            deleteTimeManagement.setDateOfLastDelete(dateThreeMonthsFromNow);
-//        }
-//
     }
     private void deleteMessagesBeforeThisDate(Date date) {
         messageRepository.findAll().stream()

@@ -3,6 +3,7 @@ package com.spiderman.landlordcommunicationapp.service;
 import com.spiderman.landlordcommunicationapp.models.Rating;
 import com.spiderman.landlordcommunicationapp.repositories.RatingRepository;
 import com.spiderman.landlordcommunicationapp.repositories.UserRepository;
+import com.spiderman.landlordcommunicationapp.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,11 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public double getUserRatingByUserId(int id) {
+    public double getUserRatingByUserId(int id) throws ValidationException {
+        if (userRepository.findById(id) == null) {
+            throw new ValidationException("There is no such user!");
+        }
+
         ArrayList<Double> ratings = new ArrayList<>();
         ratingRepository.findAllByRatedUserId(id)
                 .forEach(x -> ratings.add(x.getRating()));
@@ -32,7 +37,17 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public Rating createAndSaveRating(int ratedUserId, int giverUserId, double ratingValue) {
+    public Rating createAndSaveRating(int ratedUserId, int giverUserId, double ratingValue)
+            throws ValidationException {
+        if (userRepository.findById(ratedUserId) == null) {
+            throw new ValidationException("There is no such user to be rated!");
+        }
+        if (userRepository.findById(giverUserId) == null) {
+            throw new ValidationException("There is no such source user!");
+        }
+        if (ratingValue < 1 || ratingValue > 5) {
+            throw new ValidationException("Rating must be between 1 and 5!");
+        }
         Rating rating = ratingRepository.findByRatedUserIdAndSourceUserId(ratedUserId, giverUserId);
 
         if (rating == null) {

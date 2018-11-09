@@ -4,6 +4,7 @@ import com.spiderman.landlordcommunicationapp.models.Accommodation;
 import com.spiderman.landlordcommunicationapp.models.User;
 import com.spiderman.landlordcommunicationapp.repositories.AccommodationRepository;
 import com.spiderman.landlordcommunicationapp.repositories.UserRepository;
+import com.spiderman.landlordcommunicationapp.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,46 +32,84 @@ public class AccommodationServiceImpl implements AccommodationService{
     }
 
     @Override
-    public List<Accommodation> getAllAccommodationsByItsUserId(int userId) {
+    public List<Accommodation> getAllAccommodationsByItsUserId(int userId) throws ValidationException {
+        if (userRepository.findById(userId) == null) {
+            throw new ValidationException("There is no such user!");
+        }
 
         return  accommodationRepository.findAll().stream()
                 .filter(x -> x.getLandlord().getId() == userId || x.getTenant().getId() == userId)
                 .collect(Collectors.toList());
     }
 
+    private Accommodation returnAccommodationByIdOrThrowExeption(int accommodationId) throws ValidationException {
+        Accommodation accommodation = accommodationRepository.findById(accommodationId);
+        if ( accommodation == null) {
+            throw new ValidationException("There is no such accommodation!");
+        }
+        return accommodation;
+    }
+
     @Override
-    public Accommodation save(Accommodation accommodation) {
+    public Accommodation save(Accommodation accommodation) throws ValidationException {
+        if (accommodationRepository.findById(accommodation.getId()) != null) {
+            throw new ValidationException("There is already accommodation with same id!");
+        }
         return accommodationRepository.save(accommodation);
     }
 
     @Override
-    public Accommodation addTenantToThisAccommodation(Accommodation accommodation, User newTenant) {
+    public Accommodation addTenantToThisAccommodation(Accommodation accommodation, User newTenant)
+            throws ValidationException{
+        if (accommodationRepository.findById(accommodation.getId()) == null) {
+            throw new ValidationException("There is no such accommodation!");
+        }
+        if (userRepository.findById(newTenant.getId()) == null) {
+            throw new ValidationException("There is no such user!");
+        }
+
         accommodation.setTenant(newTenant);
         return accommodation;
     }
 
     @Override
-    public Accommodation removeTenantFromThisAccommodation(Accommodation accommodation) {
+    public Accommodation removeTenantFromThisAccommodation(Accommodation accommodation) throws ValidationException{
+        if (accommodationRepository.findById(accommodation.getId()) == null) {
+            throw new ValidationException("There is no such accommodation!");
+        }
+
         accommodation.setTenant(null);
         return accommodation;
     }
 
     @Override
-    public Accommodation getAccommodationByItsId(int id) {
+    public Accommodation getAccommodationByItsId(int id) throws ValidationException{
+        if (accommodationRepository.findById(id) == null) {
+            throw new ValidationException("There is no such accommodation!");
+        }
         return accommodationRepository.findById(id);
     }
 
     @Override
-    public Accommodation editAccommodationById(int id, Accommodation accommodation) {
+    public Accommodation editAccommodationById(int id, Accommodation accommodation) throws ValidationException{
+        if (accommodationRepository.findById(id) == null) {
+            throw new ValidationException("There is no such accommodation!");
+        }
+
         return accommodationRepository.save(accommodation);
+
     }
 
     @Override
-    public Accommodation payRentForAccommodation(int id, Accommodation accommodation) {
+    public Accommodation payRentForAccommodation(int id, Accommodation accommodation) throws ValidationException{
         return accommodationRepository.save(payRent(id));
     }
 
-    private Accommodation payRent(int id) {
+    private Accommodation payRent(int id) throws ValidationException{
+
+        if (accommodationRepository.findById(id) == null) {
+            throw new ValidationException("There is no such accommodation!");
+        }
 
         Accommodation accommodation = accommodationRepository.findById(id);
 

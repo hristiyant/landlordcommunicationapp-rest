@@ -2,6 +2,7 @@ package com.spiderman.landlordcommunicationapp.controlers;
 
 import com.spiderman.landlordcommunicationapp.models.Rating;
 import com.spiderman.landlordcommunicationapp.service.RatingService;
+import com.spiderman.landlordcommunicationapp.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ public class RatingController {
 
     @PutMapping("/{ratedUserId}/{giverUserId}/{ratingValue}")
     public Rating rateUser(@PathVariable int ratedUserId, @PathVariable int giverUserId,
-                           @PathVariable double ratingValue) {
+                           @PathVariable double ratingValue) throws ValidationException {
         return ratingService.createAndSaveRating(ratedUserId, giverUserId, ratingValue);
     }
 }

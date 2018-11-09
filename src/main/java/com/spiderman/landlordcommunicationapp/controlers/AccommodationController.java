@@ -5,6 +5,7 @@ import com.spiderman.landlordcommunicationapp.models.Message;
 import com.spiderman.landlordcommunicationapp.models.User;
 import com.spiderman.landlordcommunicationapp.service.AccommodationService;
 import com.spiderman.landlordcommunicationapp.service.MessageService;
+import com.spiderman.landlordcommunicationapp.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -32,22 +33,24 @@ public class AccommodationController {
     }
 
     @GetMapping("/{accommodationId}")
-    public Accommodation getAccommodationByItsId(@PathVariable int accommodationId) {
+    public Accommodation getAccommodationByItsId(@PathVariable int accommodationId) throws ValidationException {
         return accommodationService.getAccommodationByItsId(accommodationId);
     }
 
     @PostMapping
-    public Accommodation save(@RequestBody Accommodation accommodation) {
+    public Accommodation save(@RequestBody Accommodation accommodation) throws ValidationException{
         return accommodationService.save(accommodation);
     }
 
     @PutMapping("/{id}")
-    public Accommodation editAccommodationById(@PathVariable int id, @RequestBody Accommodation accommodation) {
+    public Accommodation editAccommodationById(@PathVariable int id, @RequestBody Accommodation accommodation)
+            throws ValidationException{
         return accommodationService.editAccommodationById(id, accommodation);
     }
 
     @PutMapping("/pay/{id}")
-    public Accommodation payRent(@PathVariable int id, @RequestBody Accommodation accommodation) {
+    public Accommodation payRent(@PathVariable int id, @RequestBody Accommodation accommodation)
+            throws ValidationException {
         return accommodationService.payRentForAccommodation(id, accommodation);
     }
 
@@ -57,12 +60,14 @@ public class AccommodationController {
     }
 
     @PutMapping("/newTenant")
-    public Accommodation addTenantToThisAccommodation(@RequestBody Accommodation accommodation, @RequestBody User user) {
+    public Accommodation addTenantToThisAccommodation(@RequestBody Accommodation accommodation, @RequestBody User user)
+            throws ValidationException {
         return accommodationService.addTenantToThisAccommodation(accommodation, user);
     }
 
     @PutMapping("freeThisAccommodation")
-    public Accommodation removeTenantFromThisAccommodation(@RequestBody Accommodation accommodation) {
+    public Accommodation removeTenantFromThisAccommodation(@RequestBody Accommodation accommodation)
+            throws ValidationException {
         return accommodationService.removeTenantFromThisAccommodation(accommodation);
     }
 }
