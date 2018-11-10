@@ -1,7 +1,7 @@
 # LandlordCommunicationAppRestAPI
 RestAPI to serve The Landlord Communication Android Application
 
-## RESTApi endpoints:
+## RESTAPI endpoints:
 
 ### GET /Accommodations
 returns List of all accommodations
