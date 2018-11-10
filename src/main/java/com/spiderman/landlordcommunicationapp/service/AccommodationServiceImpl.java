@@ -42,14 +42,6 @@ public class AccommodationServiceImpl implements AccommodationService{
                 .collect(Collectors.toList());
     }
 
-    private Accommodation returnAccommodationByIdOrThrowExeption(int accommodationId) throws ValidationException {
-        Accommodation accommodation = accommodationRepository.findById(accommodationId);
-        if ( accommodation == null) {
-            throw new ValidationException("There is no such accommodation!");
-        }
-        return accommodation;
-    }
-
     @Override
     public Accommodation save(Accommodation accommodation) throws ValidationException {
         if (accommodationRepository.findById(accommodation.getId()) != null) {
@@ -84,10 +76,11 @@ public class AccommodationServiceImpl implements AccommodationService{
 
     @Override
     public Accommodation getAccommodationByItsId(int id) throws ValidationException{
-        if (accommodationRepository.findById(id) == null) {
+        Accommodation accommodation = accommodationRepository.findById(id);
+        if ( accommodation == null) {
             throw new ValidationException("There is no such accommodation!");
         }
-        return accommodationRepository.findById(id);
+        return accommodation;
     }
 
     @Override
@@ -102,16 +95,18 @@ public class AccommodationServiceImpl implements AccommodationService{
 
     @Override
     public Accommodation payRentForAccommodation(int id, Accommodation accommodation) throws ValidationException{
-        return accommodationRepository.save(payRent(id));
+        Accommodation newAccommodation = payRent(id);
+        accommodationRepository.save(newAccommodation);
+        return newAccommodation;
     }
 
     private Accommodation payRent(int id) throws ValidationException{
 
-        if (accommodationRepository.findById(id) == null) {
+        Accommodation accommodation = accommodationRepository.findById(id);
+
+        if (accommodation == null) {
             throw new ValidationException("There is no such accommodation!");
         }
-
-        Accommodation accommodation = accommodationRepository.findById(id);
 
         LocalDate dateAfterOneMonth = LocalDate.now().plusMonths(1);
         Timestamp dueDate = accommodation.getDueDate();
