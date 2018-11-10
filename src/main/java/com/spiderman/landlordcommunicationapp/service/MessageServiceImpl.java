@@ -70,7 +70,8 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message deleteMessage(Message message) {
         message.setDeleted(true);
-        return messageRepository.save(message);
+        messageRepository.save(message);
+        return message;
     }
 
     @Override
