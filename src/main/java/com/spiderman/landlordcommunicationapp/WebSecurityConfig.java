@@ -18,21 +18,5 @@ public class WebSecurityConfig extends
 
         http.authorizeRequests().antMatchers("/").permitAll();
         http.csrf().disable();
-//                .authorizeRequests()
-//                .antMatchers("/Accommodations").authenticated()
-//                .and().httpBasic().authenticationEntryPoint((request, response, authException) -> {
-//            String requestedBy = request.getHeader("X-Requested-By");
-////                            log.info("X-Requested-By: " + requestedBy);
-//            if (requestedBy == null || requestedBy.isEmpty()) {
-//                HttpServletResponse httpResponse = (HttpServletResponse) response;
-//                httpResponse.addHeader("WWW-Authenticate", "Basic realm=Cascade Realm");
-//                httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
-//            } else {
-//                HttpServletResponse httpResponse = (HttpServletResponse) response;
-//                httpResponse.addHeader("WWW-Authenticate", "Application driven");
-//                httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
-//            }
-//        });
-
     }
 }

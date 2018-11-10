@@ -3,11 +3,11 @@ package com.spiderman.landlordcommunicationapp.service;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.database.*;
-import com.spiderman.landlordcommunicationapp.models.Accommodation;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.spiderman.landlordcommunicationapp.models.Message;
 import com.spiderman.landlordcommunicationapp.repositories.MessageRepository;
-import com.spiderman.landlordcommunicationapp.service.utils.DeleteTimeManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +24,6 @@ public class MessageServiceImpl implements MessageService {
 
     private static final int DAYS_OF_VALIDITY_OF_THE_MESSAGES = 90;
     private final MessageRepository messageRepository;
-    private DeleteTimeManagement deleteTimeManagement;
-
-
 
     @Autowired
     public MessageServiceImpl(MessageRepository messageRepository) {
@@ -38,11 +35,8 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.findAllByContextAccommodationIdAndIsDeletedFalse(accommodationId);
     }
 
-
-
     @Override
     public Message saveMessage(Message message) {
-
 
         try {
             FileInputStream serviceAccount = new FileInputStream("D:/JAVA/FinalProject/LandlordCommunicationAppRestAPI/src/main/resources/serviceAccountKey.json");
@@ -70,7 +64,6 @@ public class MessageServiceImpl implements MessageService {
             e.printStackTrace();
         }
 
-
         return messageRepository.save(message);
     }
 
@@ -95,13 +88,11 @@ public class MessageServiceImpl implements MessageService {
     }
     private void deleteMessagesBeforeThisDate(Date date) {
         messageRepository.findAll().stream()
-                .filter(x -> x.getTimeSent().before(date) && x.isDeleted() == false)
+                .filter(x -> x.getTimeSent().before(date) && !x.isDeleted())
                 .forEach(x ->
                 {
                     x.setDeleted(true);
                     saveMessage(x);
                 });
     }
-
-
 }
