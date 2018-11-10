@@ -15,7 +15,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 
-import static org.mockito.ArgumentMatchers.doubleThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -39,14 +38,7 @@ public class RatingServiceImplTests {
     User secondTenant = new User();
 
     {
-        firstLandlord.setId(1);
-        firstLandlord.setPhoneNumber("0881223344");
-
-        firstTenant.setId(2);
-        firstTenant.setPhoneNumber("0883445566");
-
-        secondTenant.setId(3);
-        secondTenant.setPhoneNumber("0884556677");
+        UserServiceTests.setDefaultTestUsers(firstLandlord, firstTenant, secondTenant, new ArrayList<>());
     }
 
     Rating firstRating = new Rating();
@@ -57,15 +49,7 @@ public class RatingServiceImplTests {
 
 
     {
-        firstRating.setRatedUser(firstLandlord);
-        firstRating.setSourceUser(firstTenant);
-        firstRating.setRating(5.0);
-        listOfFirstTenantsRaitings.add(firstRating);
-
-        secondRating.setRatedUser(firstLandlord);
-        secondRating.setSourceUser(secondTenant);
-        secondRating.setRating(4.0);
-        listOfFirstTenantsRaitings.add(secondRating);
+        UserServiceTests.setDefaultTestRatings(firstRating, firstLandlord, firstTenant, listOfFirstTenantsRaitings, secondRating, secondTenant);
     }
 
     @Test
