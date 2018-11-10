@@ -51,9 +51,10 @@ public class AccommodationServiceImpl implements AccommodationService{
     }
 
     @Override
-    public Accommodation addTenantToThisAccommodation(Accommodation accommodation, User newTenant)
+    public Accommodation addTenantToThisAccommodation(int accommodationId, User newTenant)
             throws ValidationException{
-        if (accommodationRepository.findById(accommodation.getId()) == null) {
+        Accommodation accommodation = accommodationRepository.findById(accommodationId);
+        if (accommodation == null) {
             throw new ValidationException("There is no such accommodation!");
         }
         if (userRepository.findById(newTenant.getId()) == null) {

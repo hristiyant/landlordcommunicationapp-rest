@@ -14,7 +14,7 @@ public interface AccommodationService {
 
     Accommodation save(Accommodation accommodation) throws ValidationException;
 
-    Accommodation addTenantToThisAccommodation(Accommodation accommodation, User newTenant) throws ValidationException;
+    Accommodation addTenantToThisAccommodation(int accommodationId, User newTenant) throws ValidationException;
 
     Accommodation removeTenantFromThisAccommodation(Accommodation accommodation) throws ValidationException;
 

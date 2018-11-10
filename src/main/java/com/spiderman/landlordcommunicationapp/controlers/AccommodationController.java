@@ -59,10 +59,10 @@ public class AccommodationController {
         return messageService.getMessagesByAccommodationIdAndIsDeletedFalse(accommodationId);
     }
 
-    @PutMapping("/newTenant")
-    public Accommodation addTenantToThisAccommodation(@RequestBody Accommodation accommodation, @RequestBody User user)
+    @PutMapping("/{accommodationId}/newTenant")
+    public Accommodation addTenantToThisAccommodation(@PathVariable int accommodationId, @RequestBody User user)
             throws ValidationException {
-        return accommodationService.addTenantToThisAccommodation(accommodation, user);
+        return accommodationService.addTenantToThisAccommodation(accommodationId, user);
     }
 
     @PutMapping("freeThisAccommodation")

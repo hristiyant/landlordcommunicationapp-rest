@@ -167,7 +167,7 @@ public class AccommodationServiceTests {
         when(accommodationRepository.findById(test.getId()))
                 .thenReturn(test);
 
-        test = accommodationService.addTenantToThisAccommodation(test, newTenant);
+        test = accommodationService.addTenantToThisAccommodation(test.getId(), newTenant);
 
         Assert.assertEquals(oneAccommodation.getTenant(), test.getTenant());
     }
@@ -180,7 +180,7 @@ public class AccommodationServiceTests {
         when(accommodationRepository.findById(1))
                 .thenReturn(oneAccommodation);
 
-        accommodationService.addTenantToThisAccommodation(oneAccommodation, firstTenant);
+        accommodationService.addTenantToThisAccommodation(oneAccommodation.getId(), firstTenant);
     }
 
 //    @Test(expected = ValidationException.class)
