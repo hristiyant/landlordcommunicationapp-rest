@@ -1,6 +1,13 @@
 # LandlordCommunicationAppRestAPI
 RestAPI to serve The Landlord Communication Android Application
 
+## RESTAPI 
+https://github.com/vladimirVenkov/LandlordCommunicationAppRestAPI
+
+## Android Application
+https://github.com/vladimirVenkov/TheBeginning
+
+
 ## RESTAPI endpoints:
 
 ### GET /Accommodations
