@@ -10,6 +10,9 @@ https://github.com/vladimirVenkov/TheBeginning
 ## SQL Scripts to create database for the project and to add some test data:
 https://github.com/vladimirVenkov/LandlordCommunicationAppRestAPI/tree/master/DataBaseScripts
 
+### Screenshots:
+![test][https://github.com/vladimirVenkov/LandlordCommunicationAppRestAPI/blob/master/SCREENSHOTS/Screenshot_20181113-224926.png]
+
 ## RESTAPI endpoints:
 
 ### GET /Accommodations
