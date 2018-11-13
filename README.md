@@ -7,6 +7,8 @@ https://github.com/vladimirVenkov/LandlordCommunicationAppRestAPI
 ## Android Application
 https://github.com/vladimirVenkov/TheBeginning
 
+## SQL Scripts to create database for the project and fill it some test data:
+https://github.com/vladimirVenkov/LandlordCommunicationAppRestAPI/tree/master/DataBaseScripts
 
 ## RESTAPI endpoints:
 
